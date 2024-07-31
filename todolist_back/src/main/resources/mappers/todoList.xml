@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toyproject.todolist.repository.TodoListMapper">
+    <insert id="save" parameterType="com.toyproject.todolist.entity.TodoList">
+        insert into todo_tb
+            values(0, #{content}, #{date}, #{state})
+
+    </insert>
+    <update id="update" parameterType="com.toyproject.todolist.entity.TodoList">
+        update
+            todo_tb
+        set
+            content = #{content}
+        where
+            todoId = #{todoId}
+
+    </update>
+    <delete id="delete">
+        delete
+         from
+        todo_tb
+        where
+        todoId = #{todoId}
+    </delete>
+
+    <select id="findTodoListByTodoId"
+            resultType="com.toyproject.todolist.entity.TodoList">
+        select
+            todoId,
+            content,
+            date,
+            state
+        from
+            todo_tb
+    </select>
+    <select id="findTodoById" resultType="com.toyproject.todolist.entity.TodoList">
+        select
+            todoId,
+            content,
+            date,
+            state
+        from
+            todo_tb
+        where
+            todoId = #{todoId}
+    </select>
+</mapper>

@@ -17,7 +17,7 @@ export const container = css`
       width: 500px;
       height: 40px;
       border-radius: 3px;
-      background-color: #9cf07a;
+      cursor: pointer;
     }
 
     .move {
@@ -27,7 +27,7 @@ export const container = css`
       left: 0;
       width: 50%;
       height: 100%;
-      background-color: #cff0c2;
+      background-color: #9cf07a;;
       transition: 200ms ease-in-out;
     }
 

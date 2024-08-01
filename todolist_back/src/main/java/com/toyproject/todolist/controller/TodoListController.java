@@ -1,6 +1,7 @@
 package com.toyproject.todolist.controller;
 
 import com.toyproject.todolist.dto.ReqRegisterTodoListDto;
+import com.toyproject.todolist.dto.ReqSetCheckboxStateDto;
 import com.toyproject.todolist.dto.ReqUpdateTodoListDto;
 import com.toyproject.todolist.service.TodoListServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -49,6 +50,19 @@ public class TodoListController {
     public ResponseEntity<?> removeApi(@PathVariable int todoId) {
         log.info("{}", todoId);
         return ResponseEntity.ok().body(todoListService.deleteTodoList(todoId));
+    }
+
+
+    @GetMapping("/todos/{state}")
+    public ResponseEntity<?> getTodoApi(@PathVariable int state) {
+        log.info("{}", state);
+        return ResponseEntity.ok().body(todoListService.getTodoListDtoBystate(state));
+    }
+
+    @PutMapping("/todo/checkbox")
+    public ResponseEntity<?> setCheckboxState(@RequestBody ReqSetCheckboxStateDto reqDto) {
+        log.info("{}", reqDto);
+        return ResponseEntity.ok().body(todoListService.setCheckboxState(reqDto));
     }
 
 

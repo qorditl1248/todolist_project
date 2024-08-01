@@ -17,6 +17,14 @@
             todoId = #{todoId}
 
     </update>
+    <update id="updateCheckboxState" parameterType="com.toyproject.todolist.entity.TodoList">
+        update
+            todo_tb
+        set
+            state = #{state}
+        where
+            todoId = #{todoId}
+    </update>
     <delete id="delete">
         delete
          from
@@ -46,4 +54,17 @@
         where
             todoId = #{todoId}
     </select>
+
+    <select id="findTodoListByState" parameterType="integer" resultType="com.toyproject.todolist.entity.TodoList">
+        select
+            todoId,
+            content,
+            date,
+            state
+        from
+            todo_tb
+        where
+            state = #{state}
+    </select>
+
 </mapper>

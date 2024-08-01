@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 
+
 export const container = css`
     display: flex;
     flex-direction: column;
@@ -75,6 +76,7 @@ export const container = css`
         align-items: center;
     }
 
+
     .info > p {
         display: inline-block;
         margin: 0;
@@ -84,6 +86,7 @@ export const container = css`
       height: 20px;
       width: 20px;
       margin-right: 5px;
+      cursor: pointer;
     }
 
     .buttons > button {
@@ -102,7 +105,7 @@ export const container = css`
 
         &:active {
           color: #2be15e;
-          font-weight: 600;
+          font-weight: 700;
         }
     }
 
@@ -120,7 +123,7 @@ export const container = css`
 `;
 
 export const modal = css`
-    display: flex;
+    /* display: flex;
     justify-content: center;
     position: relative;
     box-sizing: border-box;
@@ -130,7 +133,26 @@ export const modal = css`
     padding: 20px;
     width: 400px;
     height: 400px;
-    background-color: aliceblue;
+    background-color: #f2ffec; */
+
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    padding: 20px;
+    width: 400px;
+    height: 300px;
+    border-top: 25px solid #dbffca;
+    box-shadow: 0px 5px 5px #dbdbdb;
+    background-color: #fdfaf4;
+    background:
+        linear-gradient(to bottom, transparent 19px, #00ff802e 5px) 0 0 / 100vw 20px repeat-y,
+        linear-gradient(to right, transparent 19px, #00ff802e  5px) 0 0 / 20px 100vh repeat-x
+        white;
 `;
 
 export const modfiy = css`
@@ -139,13 +161,30 @@ export const modfiy = css`
   justify-content: center;
   align-items: center;
 
-  input {
-    width: 200px;
-    height: 50px;
+  h2 {
+    font-family: 'omyu_pretty';
+    font-weight: 400;
+    margin-top: 0;
   }
   
-  button {
-    width: 100px;
+  input {   
+    padding: 20px;
+    width: 200px;
+    height: 100px;
+    background-color: transparent;
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+    cursor: text;
   }
   `;
+
+export const button = css`
+    width: 140px;
+    button {
+        font-size: 15px;
+        margin-top: 15px;
+        width: 70px;
+    }
+`;
+
 

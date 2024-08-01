@@ -13,8 +13,6 @@ function MainContainer({children}) {
     setSelectMonth(e.target.value);
   };
 
-
-
   return (
     <>
       <div css={s.container}>

@@ -18,4 +18,9 @@ p {
   position: absolute;
   right: 30px;
 }
+
+input {
+  cursor: pointer;
+}
+
 `;

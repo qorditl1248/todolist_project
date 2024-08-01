@@ -12,4 +12,6 @@ public interface TodoListMapper {
     TodoList findTodoById(int todoId);
     int delete(int todoId);
     int update(TodoList todoList);
+    List<TodoList> findTodoListByState(int state);
+    int updateCheckboxState(TodoList todoList);
 }

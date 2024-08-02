@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface TodoListMapper {
     int save(TodoList todoList);
-    List<TodoList> findTodoListByTodoId();
+    List<TodoList> findTodoListByTodoId(String date);
     TodoList findTodoById(int todoId);
     int delete(int todoId);
     int update(TodoList todoList);

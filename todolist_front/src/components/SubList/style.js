@@ -8,6 +8,7 @@ export const container = css`
   width: 500px;
   height: 750px;
   background-color: #fafafa;
+  border-radius: 5px;
 
     .icon {
       position: relative;
@@ -44,41 +45,58 @@ export const container = css`
       border-radius: 3px;
       z-index: 10;
       background-color: transparent;
+      font-family: 'GangwonEduSaeeum_OTFMediumA';
+      font-size: 24px;
     }
 
-    .card {
-      display: flex;
-      flex-direction: column;
-      border: 1px solid #dbdbdb;
-      padding: 10px;
-      width: auto;
-      height: 150px;
-      margin-bottom: 10px;
+    .mini-box {
+    box-sizing: border-box;
+    border: 1px solid #dbdbdb;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .info {
+    display: flex;
+
+    label::after {
+      content: "🙈";
+      font-size: 28px;
+      cursor: pointer;
+    }
+    input {
+      display: none;
+    }
+    input:checked+label::after {
+      content: "🙉";
+    }
+  }
+
+  .info > p{
+    margin-left: 10px;
+    margin-top: 5px;
+  }
+
+  .card {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #dbdbdb;
+        padding: 10px;
+        width: auto;
+        height: 150px;
+        margin-bottom: 10px;
     }
 
-    .info {
-      display: flex;
-      position: relative;
-      align-items: center;
-    }
-
-    .info > p {
-      display: inline-block;
-      margin: 0;
-    }
-
-    .info > input [type=checkbox] {
-      height: 20px;
-      width: 20px;
-      margin-right: 5px;
-    }
-
-    .card > p {
-      display: flex;
-      justify-content: center;
+    .content {
       font-size: 20px;
-    }
-
-  `;
-
+      align-self: center;
+      word-break: break-all;
   
+    }
+  `;

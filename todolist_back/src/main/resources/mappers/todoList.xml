@@ -33,7 +33,7 @@
         todoId = #{todoId}
     </delete>
 
-    <select id="findTodoListByTodoId"
+    <select id="findTodoListByTodoId" parameterType="string"
             resultType="com.toyproject.todolist.entity.TodoList">
         select
             todoId,
@@ -42,6 +42,10 @@
             state
         from
             todo_tb
+        where
+            date = #{date}
+        order by
+             todoId desc
     </select>
     <select id="findTodoById" resultType="com.toyproject.todolist.entity.TodoList">
         select

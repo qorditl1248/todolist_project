@@ -15,6 +15,7 @@ public class TodoListServiceImpl {
     @Autowired
     private TodoListMapper todoListMapper;
 
+
     public int registerTodoList(ReqRegisterTodoListDto reqDto) {
 
         TodoList todoList = TodoList.builder()
@@ -26,19 +27,20 @@ public class TodoListServiceImpl {
         return todoListMapper.save(todoList);
     }
 
+
     public int updateTodoList(ReqUpdateTodoListDto reqDto) {
         TodoList todoList = TodoList.builder()
                 .todoId(reqDto.getTodoId())
                 .content(reqDto.getContent())
-//                .date(reqDto.getDate())
                 .build();
         return todoListMapper.update(todoList);
     }
 
-    public List<RespGetTodoListDto> getTodoList() {
+
+    public List<RespGetTodoListDto> getTodoList(String date) {
         List<RespGetTodoListDto> respDtos = new ArrayList<>();
 
-        List<TodoList> todoLists = todoListMapper.findTodoListByTodoId();
+        List<TodoList> todoLists = todoListMapper.findTodoListByTodoId(date);
 
         for(TodoList todo : todoLists) {
             RespGetTodoListDto dto = RespGetTodoListDto.builder()
@@ -52,9 +54,11 @@ public class TodoListServiceImpl {
         return respDtos;
     }
 
+
     public int deleteTodoList(int todoId) {
         return todoListMapper.delete(todoId);
     }
+
 
     public RespGetTodoDto getTodo(int todoId) {
 
@@ -84,6 +88,7 @@ public class TodoListServiceImpl {
         }
         return todolistDtos;
     }
+
 
     public int setCheckboxState(ReqSetCheckboxStateDto reqDto) {
         TodoList todoList = TodoList

@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect,useState } from "react";
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 import api from "../../apis/instance";
-import axios from "axios";
 import ReactModal from "react-modal";
-import { modalAtom, selectMonthAtom, todoListAtom } from "../../atoms/todolistAtom";
+import {selectMonthAtom, todoListAtom } from "../../atoms/todolistAtom";
 import { useRecoilState } from "recoil";
 
 function MainList(props) {
   const emptyModifyInput = {
-    todoId: "",
     content: ""
   };
 
   const [inputValue, setInputValue] = useState("");
   const [todoList, setTodoList] = useRecoilState(todoListAtom);
-  const [isModalOpen, setIsModalOpen] = useRecoilState(modalAtom);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [modifyInput, setModifyInput] = useState(emptyModifyInput); 
   const [selectMonth, setSelectMonth ] = useRecoilState(selectMonthAtom);
+  
+  // const modifyInputRef = useRef(null);
   
   // todolist가 바뀔때마다 렌더링
   useEffect(() => {
     requestTodoList();
-  }, []);
+  }, [selectMonth]);
 
   // input 상태의 값 넣기 
   const handleRegisterInputChange = (e) => {
@@ -54,7 +54,7 @@ function MainList(props) {
   // todolist 가져오기
   const requestTodoList = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/v1/todolist");
+      const response = await api.get(`/todolist/${selectMonth}`);
       console.log(response.data);
       setTodoList(response.data);
     } catch (e) {
@@ -64,9 +64,9 @@ function MainList(props) {
 
   // 삭제 버튼 클릭 
   const handleDeleteClick = async (todoId) => {
-    if(window.confirm("삭제하시겠습니까?")) {
+    if(window.confirm("삭제하시면 되돌릴 수 없습니다.\n그래도 삭제하시겠습니까?")) {
       await requestDelete(todoId);
-      alert("삭제 완료!")
+      alert("삭제 완료!");
       requestTodoList();
     }
   }
@@ -159,10 +159,11 @@ function MainList(props) {
     }
   };
 
-
-  // onRequestClose -> class로 오타였어서 modal창 안닫힘 
-  // 이 속성은 사용자가 모달 바깥을 클릭하거나 모달 내부의 닫기 버튼을 눌렀을 때 모달을 닫기 위한 콜백 함수를 설정됨 
-
+  const handleOnkeyDownModal = (e) => {
+    if(e.keyCode === 13) {
+      handleModifySubmitClick();
+    }
+  }
 
   return (
     <>
@@ -175,6 +176,9 @@ function MainList(props) {
             name="content"
             onChange={handleModifyInputChange}
             value={modifyInput.content}
+            onKeyDown={handleOnkeyDownModal}
+            autoFocus
+            
           />
         <div css={s.button}>
           <button onClick={handleModifySubmitClick}>수정</button>
@@ -191,21 +195,26 @@ function MainList(props) {
           value={inputValue}
           placeholder="할 일을 입력해주세요"
           onKeyDown={handleOnkeyDown}
+          maxLength={70}
         />
-        <button onClick={handleRegisterSubmitClick} onKeyDown={handleOnkeyDown} name="button">추가</button>
+        <button onClick={handleRegisterSubmitClick} 
+          onKeyDown={handleOnkeyDown} 
+          name="button">추가
+        </button>
       </div>
       <div className="mini-box">
         {todoList.map((todoList) => (
           <div className="card" key={todoList.todoId}>
             <div className="info">
-              <input type="checkbox" onChange={() => handleCheckboxStateChange(todoList.todoId, todoList.state)} checked={todoList.state}/>
+              <input type="checkbox" onChange={() => handleCheckboxStateChange(todoList.todoId, todoList.state)} checked={todoList.state} id={todoList.todoId}/>
+              <label htmlFor={todoList.todoId}></label>
               <p>{todoList.date}</p>
               <div className="buttons">
                 <button onClick={() => handleModifyClick(todoList.todoId)}>수정</button>
                 <button onClick={() => handleDeleteClick(todoList.todoId)}>삭제</button>
               </div>
             </div>
-            <p>{todoList.content}</p>
+            <p className="todo-content">{todoList.content}</p>
           </div>
         ))}
       </div>

@@ -12,5 +12,16 @@ export async function registerApi(todoList) {
   return response;
 }
 
+export async function getTodoListByDateApi(date) {
+  let response = null;
+  try {
+    response = await api.get(`/todolist/${date}`)
+  } catch(e) {
+    console.error(e);
+    response = e.response.data;
+  }
+  return response;
+}
+
 
 

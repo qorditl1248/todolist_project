@@ -5,6 +5,7 @@ import api from "../../apis/instance";
 import ReactModal from "react-modal";
 import {selectMonthAtom, todoListAtom } from "../../atoms/todolistAtom";
 import { useRecoilState } from "recoil";
+import { getTodoListByDateApi, registerApi } from "../../apis/todoApi";
 
 function MainList(props) {
   const emptyModifyInput = {
@@ -30,36 +31,32 @@ function MainList(props) {
   };
 
   // input 추가 버튼 클릭
+
   const handleRegisterSubmitClick = async () => {
-    if(inputValue.trim() !== '') {
+    if(inputValue.trim !== '') {
       const newRegister = {
         content: inputValue,
-        date: selectMonth,
+        date: selectMonth
       };
-      let response = null;
-      try {
-        response = await api.post("/todo", newRegister);
-        console.log(response.data);
-      } catch (e) {
-        console.error(e);
+      const response = await registerApi(newRegister);
+      if(response.data === 200 && response.data > 0) {
+        alert("등록성공~!");
+      } else {
+        alert("등록실패!!")
       }
-      alert("등록성공!")
-    } else {
-      alert("작성하신 내용이 없습니다.")
+    }else {
+      alert("작성하신 내용이 없습니다!");
+      return;
     }
     setInputValue("");
     requestTodoList();
-  };
+  }
+
 
   // todolist 가져오기
   const requestTodoList = async () => {
-    try {
-      const response = await api.get(`/todolist/${selectMonth}`);
-      console.log(response.data);
-      setTodoList(response.data);
-    } catch (e) {
-      console.error(e);
-    }
+    const response = await getTodoListByDateApi(selectMonth);
+    setTodoList(response.data);
   };
 
   // 삭제 버튼 클릭 
@@ -221,6 +218,5 @@ function MainList(props) {
     </div>
     </>
   );
-}
-
+  }
 export default MainList;
